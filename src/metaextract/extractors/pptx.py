@@ -1,6 +1,5 @@
 """PPTX metadata extractor using python-pptx."""
 
-from pathlib import Path
 from typing import ClassVar
 
 from pptx import Presentation
@@ -62,6 +61,7 @@ class PPTXExtractor(MetadataExtractor):
     def _extract_app_info(self, metadata: DocumentMetadata) -> None:
         """Extract application info from the PPTX package."""
         import zipfile
+
         from lxml import etree
 
         try:

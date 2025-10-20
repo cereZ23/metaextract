@@ -1,14 +1,13 @@
 """Async file downloader with concurrency control."""
 
 import asyncio
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable
 from urllib.parse import unquote, urlparse
 
 import aiohttp
 
 from metaextract.core.models import DownloadResult
-from metaextract.core.exceptions import DownloadError
 
 
 class AsyncDownloader:
@@ -125,7 +124,7 @@ class AsyncDownloader:
                             error=f"HTTP {response.status}",
                         )
 
-            except asyncio.TimeoutError:
+            except TimeoutError:
                 return DownloadResult(
                     url=url,
                     local_path=None,
