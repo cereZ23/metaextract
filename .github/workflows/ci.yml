@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ master, main ]
 
+# Restrict permissions to minimum required (CodeQL security best practice)
+permissions:
+  contents: read
+
 jobs:
   test-install:
     runs-on: ubuntu-latest
