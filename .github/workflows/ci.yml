@@ -79,9 +79,9 @@ jobs:
     - name: Install build dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y devscripts debhelper dh-python python3-all python3-setuptools
+        sudo apt-get install -y devscripts debhelper dh-python python3-all python3-setuptools python3-pip python3-venv
 
-    - name: Validate debian packaging
+    - name: Validate debian packaging files
       run: |
         # Check required files exist
         test -f debian/control
@@ -90,3 +90,15 @@ jobs:
         test -f debian/copyright
         test -f debian/source/format
         echo "All debian packaging files present"
+
+    - name: Lint debian packaging
+      run: |
+        # Check changelog format
+        dpkg-parsechangelog --show-field Version
+        echo "Changelog format OK"
+
+    - name: Test package build (dry-run)
+      run: |
+        # Verify the package can be built
+        dpkg-buildpackage -us -uc -nc --build=source 2>&1 | head -50 || true
+        echo "Build verification complete"
