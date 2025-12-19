@@ -83,6 +83,17 @@ BANNER = r"""
     is_flag=True,
     help="Verbose output",
 )
+@click.option(
+    "--delay",
+    default=3.0,
+    type=float,
+    help="Delay between searches in seconds (default: 3.0, helps avoid rate limiting)",
+)
+@click.option(
+    "--no-rotate-ua",
+    is_flag=True,
+    help="Disable User-Agent rotation",
+)
 @click.version_option(version=__version__)
 def main(
     domain: str | None,
@@ -94,6 +105,8 @@ def main(
     local: bool,
     json_output: bool,
     verbose: bool,
+    delay: float,
+    no_rotate_ua: bool,
 ) -> None:
     """MetaExtract - Document metadata extraction for OSINT.
 
@@ -149,6 +162,8 @@ def main(
                 download_limit=download_limit,
                 output_dir=output_path,
                 verbose=verbose,
+                delay=delay,
+                rotate_ua=not no_rotate_ua,
             )
         )
 
@@ -175,11 +190,13 @@ async def search_and_extract(
     download_limit: int,
     output_dir: Path,
     verbose: bool,
+    delay: float = 3.0,
+    rotate_ua: bool = True,
 ) -> ScanResults:
     """Run the full search, download, and extraction workflow."""
     processor = ResultProcessor(domain=domain)
 
-    search_engine = DuckDuckGoSearch(domain)
+    search_engine = DuckDuckGoSearch(domain, delay=delay, rotate_ua=rotate_ua)
 
     try:
         for file_type in file_types:
