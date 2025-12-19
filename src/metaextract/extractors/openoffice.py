@@ -1,7 +1,6 @@
 """OpenOffice/LibreOffice (ODS, ODP, ODT) metadata extractor."""
 
 import zipfile
-from pathlib import Path
 from typing import ClassVar
 
 from lxml import etree
