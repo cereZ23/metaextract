@@ -10,6 +10,7 @@ Document metadata extraction tool for OSINT - Modern Python 3.12+ rewrite of Met
 - Rich CLI with progress indicators
 - HTML and JSON report export
 - Extracts usernames, email addresses, software versions, and file paths
+- **Anti-rate-limiting**: User-Agent rotation and configurable delays
 
 ## Installation
 
@@ -17,8 +18,8 @@ Document metadata extraction tool for OSINT - Modern Python 3.12+ rewrite of Met
 
 ```bash
 # Clone the repository
-git clone https://github.com/laramies/metagoofil.git
-cd metagoofil
+git clone https://github.com/cereZ23/metaextract.git
+cd metaextract
 
 # Create virtual environment
 python3 -m venv .venv
@@ -71,6 +72,9 @@ metaextract -d example.com -t pdf -v -f report.html
 
 # JSON output
 metaextract -d example.com -t pdf --json -f report.json
+
+# With longer delay to avoid rate limiting
+metaextract -d example.com -t pdf --delay 5 -f report.html
 ```
 
 ## Options
@@ -86,6 +90,8 @@ metaextract -d example.com -t pdf --json -f report.json
 | `--local` | Analyze local files only (no search/download) |
 | `--json` | Force JSON output format |
 | `-v, --verbose` | Verbose output |
+| `--delay` | Delay between searches in seconds (default: 3.0) - helps avoid rate limiting |
+| `--no-rotate-ua` | Disable User-Agent rotation (enabled by default) |
 
 ## Output
 
