@@ -1,0 +1,46 @@
+Source: metaextract
+Section: net
+Priority: optional
+Maintainer: Andrea Ceresoni <andrea.ceresoni@gmail.com>
+Build-Depends: debhelper-compat (= 13),
+               dh-python,
+               python3-all,
+               python3-setuptools,
+               python3-pip
+Standards-Version: 4.6.2
+Homepage: https://github.com/cereZ23/metaextract
+Vcs-Git: https://github.com/cereZ23/metaextract.git
+Vcs-Browser: https://github.com/cereZ23/metaextract
+Rules-Requires-Root: no
+
+Package: metaextract
+Architecture: all
+Depends: ${python3:Depends},
+         ${misc:Depends},
+         python3-aiohttp,
+         python3-pdfminer,
+         python3-docx,
+         python3-openpyxl,
+         python3-pptx,
+         python3-olefile,
+         python3-lxml,
+         python3-click,
+         python3-rich,
+         python3-pydantic,
+         python3-jinja2
+Description: Document metadata extraction tool for OSINT
+ MetaExtract is a modern Python 3.12+ rewrite of Metagoofil.
+ It searches for and downloads documents from a target domain,
+ then extracts metadata including usernames, email addresses,
+ software versions, and file paths.
+ .
+ Features:
+  - Async architecture with aiohttp for concurrent downloads
+  - DuckDuckGo search integration (no API key required)
+  - Support for PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, ODS, ODP, ODT
+  - Rich CLI with progress indicators
+  - HTML and JSON report export
+  - Anti-rate-limiting with User-Agent rotation
+ .
+ This tool is useful for OSINT (Open Source Intelligence) and
+ security assessments to identify information leakage in documents.

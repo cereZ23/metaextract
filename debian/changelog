@@ -1,0 +1,12 @@
+metaextract (3.0.0-1) unstable; urgency=medium
+
+  * Initial release of MetaExtract
+  * Complete Python 3.12+ rewrite of Metagoofil
+  * DuckDuckGo search integration (replaces broken Google scraping)
+  * Async architecture with aiohttp for concurrent downloads
+  * Modern metadata extraction libraries
+  * Rich CLI with progress indicators
+  * HTML and JSON report export
+  * Anti-rate-limiting with User-Agent rotation and configurable delays
+
+ -- Andrea Ceresoni <andrea.ceresoni@gmail.com>  Thu, 19 Dec 2024 12:00:00 +0100
