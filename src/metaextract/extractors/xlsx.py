@@ -1,6 +1,5 @@
 """XLSX metadata extractor using openpyxl."""
 
-from pathlib import Path
 from typing import ClassVar
 
 from openpyxl import load_workbook
@@ -65,6 +64,7 @@ class XLSXExtractor(MetadataExtractor):
     def _extract_app_info(self, metadata: DocumentMetadata) -> None:
         """Extract application info from the XLSX package."""
         import zipfile
+
         from lxml import etree
 
         try:

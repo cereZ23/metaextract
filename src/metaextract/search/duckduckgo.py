@@ -8,10 +8,9 @@ from urllib.parse import unquote, urlparse
 
 import aiohttp
 
-from metaextract.core.models import SearchResult
 from metaextract.core.exceptions import SearchError
+from metaextract.core.models import SearchResult
 from metaextract.search.base import SearchEngine
-
 
 # Pool of realistic User-Agent strings for rotation
 USER_AGENTS = [
@@ -58,10 +57,7 @@ class DuckDuckGoSearch(SearchEngine):
 
     def _get_headers(self) -> dict[str, str]:
         """Get headers with rotated User-Agent if enabled."""
-        if self.rotate_ua:
-            ua = random.choice(USER_AGENTS)
-        else:
-            ua = USER_AGENTS[0]
+        ua = random.choice(USER_AGENTS) if self.rotate_ua else USER_AGENTS[0]
 
         return {
             "User-Agent": ua,
@@ -176,10 +172,13 @@ class DuckDuckGoSearch(SearchEngine):
         for match in file_pattern.finditer(html):
             url = match.group(1)
             url = self._clean_url(url)
-            if url and self._is_valid_file_url(url, file_type):
-                # Avoid duplicates
-                if not any(r.url == url for r in results):
-                    results.append(SearchResult(url=url))
+            # Avoid duplicates
+            if (
+                url
+                and self._is_valid_file_url(url, file_type)
+                and not any(r.url == url for r in results)
+            ):
+                results.append(SearchResult(url=url))
 
         return results
 
@@ -226,10 +225,7 @@ class DuckDuckGoSearch(SearchEngine):
                 return False
 
             # Optionally check domain if specified
-            if self.domain and self.domain not in parsed.netloc:
-                return False
-
-            return True
+            return not (self.domain and self.domain not in parsed.netloc)
         except Exception:
             return False
 

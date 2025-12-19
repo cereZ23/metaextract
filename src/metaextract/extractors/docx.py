@@ -1,6 +1,5 @@
 """DOCX metadata extractor using python-docx."""
 
-from pathlib import Path
 from typing import ClassVar
 
 from docx import Document
@@ -65,6 +64,7 @@ class DOCXExtractor(MetadataExtractor):
     def _extract_app_info(self, metadata: DocumentMetadata) -> None:
         """Extract application info from the DOCX package."""
         import zipfile
+
         from lxml import etree
 
         try:

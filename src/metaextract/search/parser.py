@@ -1,7 +1,7 @@
 """Text parsing utilities for extracting emails, URLs, and hostnames."""
 
 import re
-from typing import Pattern
+from re import Pattern
 
 # Compiled regex patterns for efficiency
 EMAIL_PATTERN: Pattern[str] = re.compile(
@@ -128,9 +128,8 @@ def extract_hostnames(text: str, domain: str | None = None) -> list[str]:
             continue
 
         # Filter by domain if specified
-        if domain:
-            if not hostname.endswith(domain.lower()):
-                continue
+        if domain and not hostname.endswith(domain.lower()):
+            continue
 
         hostnames.add(hostname)
 
