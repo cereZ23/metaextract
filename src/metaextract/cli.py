@@ -5,20 +5,17 @@ from pathlib import Path
 
 import click
 from rich.console import Console
-from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn
-from rich.table import Table
 from rich.panel import Panel
+from rich.progress import BarColumn, Progress, SpinnerColumn, TextColumn
+from rich.table import Table
 
 from metaextract import __version__
 from metaextract.core.models import FileType, ScanResults
 from metaextract.download.downloader import AsyncDownloader
-from metaextract.extractors import extract_metadata, get_extractor
 from metaextract.export.html import HTMLExporter
 from metaextract.export.json import JSONExporter
 from metaextract.processing.processor import ResultProcessor
 from metaextract.search.duckduckgo import DuckDuckGoSearch
-from metaextract.search.parser import extract_emails
-
 
 console = Console()
 

@@ -1,18 +1,18 @@
 """Core module for metaextract."""
 
+from metaextract.core.config import Config
 from metaextract.core.exceptions import (
-    MetaExtractError,
-    ExtractionError,
-    SearchError,
     DownloadError,
+    ExtractionError,
+    MetaExtractError,
+    SearchError,
 )
 from metaextract.core.models import (
-    FileType,
     DocumentMetadata,
     ExtractionResult,
+    FileType,
     ScanResults,
 )
-from metaextract.core.config import Config
 
 __all__ = [
     "MetaExtractError",

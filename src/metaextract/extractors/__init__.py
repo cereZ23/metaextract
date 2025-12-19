@@ -1,20 +1,18 @@
 """Metadata extractors for various document formats."""
 
 from pathlib import Path
-from typing import Type
 
 from metaextract.core.models import ExtractionResult, FileType
 from metaextract.extractors.base import MetadataExtractor
-from metaextract.extractors.pdf import PDFExtractor
 from metaextract.extractors.docx import DOCXExtractor
-from metaextract.extractors.xlsx import XLSXExtractor
-from metaextract.extractors.pptx import PPTXExtractor
 from metaextract.extractors.legacy_office import LegacyOfficeExtractor
 from metaextract.extractors.openoffice import OpenOfficeExtractor
-
+from metaextract.extractors.pdf import PDFExtractor
+from metaextract.extractors.pptx import PPTXExtractor
+from metaextract.extractors.xlsx import XLSXExtractor
 
 # Registry mapping file types to extractors
-EXTRACTOR_REGISTRY: dict[FileType, Type[MetadataExtractor]] = {
+EXTRACTOR_REGISTRY: dict[FileType, type[MetadataExtractor]] = {
     FileType.PDF: PDFExtractor,
     FileType.DOC: LegacyOfficeExtractor,
     FileType.XLS: LegacyOfficeExtractor,

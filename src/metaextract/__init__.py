@@ -5,9 +5,9 @@ __author__ = "Christian Martorella"
 __email__ = "cmartorella@edge-security.com"
 
 from metaextract.core.models import (
-    FileType,
     DocumentMetadata,
     ExtractionResult,
+    FileType,
     ScanResults,
 )
 from metaextract.extractors import extract_metadata, get_extractor

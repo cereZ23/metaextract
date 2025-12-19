@@ -1,11 +1,10 @@
 """Legacy MS Office (DOC/XLS/PPT) metadata extractor using olefile."""
 
-from pathlib import Path
 from typing import ClassVar
 
 import olefile
 
-from metaextract.core.models import DocumentMetadata, ExtractionResult, FileType
+from metaextract.core.models import ExtractionResult, FileType
 from metaextract.extractors.base import MetadataExtractor
 
 

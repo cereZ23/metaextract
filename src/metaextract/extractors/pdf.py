@@ -4,8 +4,8 @@ from pathlib import Path
 from typing import Any, ClassVar
 
 from pdfminer.high_level import extract_text
-from pdfminer.pdfparser import PDFParser
 from pdfminer.pdfdocument import PDFDocument
+from pdfminer.pdfparser import PDFParser
 
 from metaextract.core.models import DocumentMetadata, ExtractionResult, FileType
 from metaextract.extractors.base import MetadataExtractor
