@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetaExtract Report - {{ domain }}</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #059669;
+            --warning: #d97706;
+            --danger: #dc2626;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-700: #374151;
+            --gray-900: #111827;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 0.5rem;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header .meta {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .stat-card .label {
+            color: var(--gray-700);
+            font-size: 0.9rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: var(--gray-100);
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .section-header h2 {
+            font-size: 1.25rem;
+            color: var(--gray-900);
+        }
+
+        .section-content {
+            padding: 1.5rem;
+        }
+
+        .list {
+            list-style: none;
+        }
+
+        .list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .list li:last-child {
+            border-bottom: none;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--gray-100);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            margin: 0.25rem;
+        }
+
+        .tag.user { background: #dbeafe; color: #1e40af; }
+        .tag.software { background: #d1fae5; color: #065f46; }
+        .tag.email { background: #fef3c7; color: #92400e; }
+        .tag.path { background: #ede9fe; color: #5b21b6; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        th {
+            background: var(--gray-50);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: var(--gray-50);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge.success { background: #d1fae5; color: var(--success); }
+        .badge.error { background: #fee2e2; color: var(--danger); }
+
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray-700);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray-700);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MetaExtract Report</h1>
+            <div class="meta">
+                <strong>Domain:</strong> {{ domain }} |
+                <strong>Generated:</strong> {{ generated_at }}
+            </div>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="number">{{ stats.total_documents }}</div>
+                <div class="label">Documents</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">{{ stats.unique_users }}</div>
+                <div class="label">Users</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">{{ stats.unique_software }}</div>
+                <div class="label">Software</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">{{ stats.unique_emails }}</div>
+                <div class="label">Emails</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">{{ stats.unique_paths }}</div>
+                <div class="label">Paths</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">{{ stats.failed_extractions }}</div>
+                <div class="label">Failed</div>
+            </div>
+        </div>
+
+        {% if users %}
+        <div class="section">
+            <div class="section-header">
+                <h2>Users Found ({{ users|length }})</h2>
+            </div>
+            <div class="section-content">
+                {% for user in users %}
+                <span class="tag user">{{ user }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if software %}
+        <div class="section">
+            <div class="section-header">
+                <h2>Software Found ({{ software|length }})</h2>
+            </div>
+            <div class="section-content">
+                {% for sw in software %}
+                <span class="tag software">{{ sw }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if emails %}
+        <div class="section">
+            <div class="section-header">
+                <h2>Emails Found ({{ emails|length }})</h2>
+            </div>
+            <div class="section-content">
+                {% for email in emails %}
+                <span class="tag email">{{ email }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if paths %}
+        <div class="section">
+            <div class="section-header">
+                <h2>Paths & Servers Found ({{ paths|length }})</h2>
+            </div>
+            <div class="section-content">
+                <ul class="list">
+                    {% for path in paths %}
+                    <li><code>{{ path }}</code></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if documents %}
+        <div class="section">
+            <div class="section-header">
+                <h2>Document Details ({{ documents|length }})</h2>
+            </div>
+            <div class="section-content" style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Filename</th>
+                            <th>Type</th>
+                            <th>Author</th>
+                            <th>Software</th>
+                            <th>Created</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for doc in documents %}
+                        <tr>
+                            <td>{{ doc.filename }}</td>
+                            <td><span class="badge success">{{ doc.file_type.value }}</span></td>
+                            <td>{{ doc.author or '-' }}</td>
+                            <td>{{ doc.software|join(', ') if doc.software else '-' }}</td>
+                            <td>{{ doc.created.strftime('%Y-%m-%d') if doc.created else '-' }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if failed %}
+        <div class="section">
+            <div class="section-header">
+                <h2>Failed Extractions ({{ failed|length }})</h2>
+            </div>
+            <div class="section-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>File</th>
+                            <th>Error</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for file, error in failed %}
+                        <tr>
+                            <td>{{ file }}</td>
+                            <td><span class="badge error">{{ error }}</span></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+
+        <footer>
+            Generated by <strong>MetaExtract 3.0</strong> |
+            <a href="https://github.com/laramies/metagoofil">GitHub</a>
+        </footer>
+    </div>
+</body>
+</html>

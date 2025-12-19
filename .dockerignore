@@ -1,0 +1,47 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv
+venv
+ENV
+env
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# Build
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Test
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Legacy code
+pdfminer/
+hachoir_core/
+hachoir_metadata/
+hachoir_parser/
+lib/
+discovery/
+extractors/
+*.pyc
+
+# Output
+downloads/
+*.html
+*.json
+output/
